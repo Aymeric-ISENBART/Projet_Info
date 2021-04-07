@@ -1,0 +1,71 @@
+Interface graphique
+--> Concevoir treillis (modif)
+	==> zone constructible (3 points)
+	==> Appuis (points) --> plots (graphique)
+	==> Noeuds (point) --> barres (graphique)
+
+	==> forces
+
+Calculs
+	==> Coordonnées points
+	==> Forces
+
+Résultats
+	==> Changement couleur
+	==> Echange textuel
+
+Sauvegarder/ouvrir fichier
+
+
+// 1 : Diagramme UML
+	--> Objets
+	--> Interactions entre objets
+
+// 2 : Calculs
+     : Interface graphique
+
+// 3 : Résultats : changement couleur
+		 : echange textuel
+
+
+
+Ressources :
+Creer un fichier : https://fr.w3docs.com/snippets/java/comment-creer-un-fichier-en-java.html
+
+
+
+TD4 :
+
+	1. Fonctionnalités
+
+> Modéliser/modifier treilis
+> Représenter l'environnement d'un / des treillis
+> Gérer un ensemble de treillis
+
+> Calculer forces => Treillis isostatique?
+	> Determiner état/fonctionnalité/fiabilité/conformité d'un treilli
+> Calculer le coût du treilli
+> Calculer les dimensions du treilli
+> Calculer rotations/mouvement
+
+> Stocker/ouvrir treillis
+
+	2. Fonctions métier
+
+- Points
+	> ancrage
+	> normaux
+- Noeuds
+	> simple
+	> double
+- Segments
+- Terrain triangle
+- Barres
+- Appuis
+	> rouleau
+	> Double
+	> encastré
+- Types
+- Catalogue
+- Terrain
+- Treillis
