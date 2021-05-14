@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.insa.isenbart.projet_m2;
+package fr.insa.isenbart.Proj_v2.Projet;
 
 /**
  *
  * @author aymer
  */
-public class Test {
-    
+public class Figure 
+{
+     
 }

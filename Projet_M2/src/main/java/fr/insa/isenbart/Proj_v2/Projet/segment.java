@@ -1,12 +1,12 @@
-package fr.insa.isenbart.projet_m2.progs;
+package fr.insa.isenbart.Proj_v2.Projet;
+
 
 import java.util.*;
 
 /**
  * 
  */
-public class segment 
-{
+public class segment {
 
     private point P1;
     private point P2; 
@@ -19,14 +19,11 @@ public class segment
     
     public String toString()
     {
-        return "(" + this.P1.toString() + " ; " + this.P2.toString() + ")";
+        return "[" + this.P1.toString() + " ; " + this.P2.toString() + "]";
     }
     
     public double longueur()
     {
         return Math.sqrt((this.P1.getPx()-this.P2.getPx())*(this.P1.getPx()-this.P2.getPx()) + (this.P1.getPy()-this.P2.getPy())*(this.P1.getPy()-this.P2.getPy()));
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package fr.insa.isenbart.projet_m2.progs;
+package fr.insa.isenbart.Proj_v2.Projet;
 
 import java.util.*;
 
@@ -19,10 +19,8 @@ public class point {
     
     public String toString()
     {
-        return "(" + this.px + " ; " + this.py + ")"; 
+        return "(" + this.getPx() + " ; " + this.getPy() + ")"; 
     }
-    
-    
     
     public double getPx()
     {
@@ -41,28 +39,34 @@ public class point {
     
     public void setPy(double py)
     {
-        this.px = py;
+        this.setPx(py);
     }
+    
+    public double distPoint(point pt)
+    {
+        return Math.sqrt(Math.pow(this.px-pt.getPx(), 2) + Math.pow(this.py-pt.getPy(), 2));
+    }
+    
     
     
     
     public double minX()
     {
-        return this.px;
+        return this.getPx();
     }
     
     public double maxX()
     {
-        return this.px;
+        return this.getPx();
     }
     
     public double minY()
     {
-        return this.py;
+        return this.getPy();
     }
     
     public double maxY()
     {
-        return this.py;
+        return this.getPy();
     }
 }

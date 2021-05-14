@@ -1,0 +1,58 @@
+package fr.insa.isenbart.Proj_v2.Projet;
+
+
+import java.util.*;
+
+/**
+ * 
+ */
+public abstract class noeud_appui extends noeud 
+{
+
+    private triangle_terrain trgl_terrain;
+    private segment seg_trlg_terrain;
+    
+    
+    public noeud_appui(int id, triangle_terrain trlg, segment seg) 
+    {
+        super(id);
+        this.seg_trlg_terrain = seg;
+        this.trgl_terrain = trlg;
+    }
+
+    public double getX()
+    {
+        return this.getX();
+    }
+    
+    public double getY()
+    {
+        return this.getY();
+    }
+    
+    
+    
+    
+    public triangle_terrain getTrgl_terrain() 
+    {
+        return trgl_terrain;
+    }
+
+    public void setTrgl_terrain(triangle_terrain trgl_terrain) 
+    {
+        this.trgl_terrain = trgl_terrain;
+    }
+
+    
+    public segment getSeg_trlg_terrain() 
+    {
+        return seg_trlg_terrain;
+    }
+
+    
+    public void setSeg_trlg_terrain(segment seg_trlg_terrain) 
+    {
+        this.seg_trlg_terrain = seg_trlg_terrain;
+    }
+
+}
