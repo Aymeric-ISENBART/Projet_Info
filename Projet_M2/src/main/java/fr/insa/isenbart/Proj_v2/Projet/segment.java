@@ -19,11 +19,27 @@ public class segment {
     
     public String toString()
     {
-        return "[" + this.P1.toString() + " ; " + this.P2.toString() + "]";
+        return "[" + this.getP1().toString() + "," + this.getP2().toString() + "]";
     }
     
     public double longueur()
     {
-        return Math.sqrt((this.P1.getPx()-this.P2.getPx())*(this.P1.getPx()-this.P2.getPx()) + (this.P1.getPy()-this.P2.getPy())*(this.P1.getPy()-this.P2.getPy()));
+        return Math.sqrt(Math.pow(this.getP1().getPx()-this.getP2().getPx(),2) + Math.pow(this.getP1().getPy()-this.getP2().getPy(),2));
     }
+
+    /**
+     * @return the P1
+     */
+    public point getP1() {
+        return P1;
+    }
+
+    /**
+     * @return the P2
+     */
+    public point getP2() {
+        return P2;
+    }
+    
+    
 }

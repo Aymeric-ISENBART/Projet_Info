@@ -17,6 +17,8 @@ public class point {
         this.py = py;
     }
     
+    
+    
     public String toString()
     {
         return "(" + this.getPx() + " ; " + this.getPy() + ")"; 

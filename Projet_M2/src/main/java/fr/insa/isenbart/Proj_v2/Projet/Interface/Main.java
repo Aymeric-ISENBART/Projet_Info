@@ -6,6 +6,7 @@
 package fr.insa.isenbart.Proj_v2.Projet.Interface;
 
 import fr.insa.isenbart.Proj_v2.Projet.Treillis;
+import fr.insa.isenbart.Proj_v2.Projet.terrain;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -21,7 +22,8 @@ public class Main extends Application
     @Override
     public void start(Stage stage) 
     {
-        Scene sc = new Scene(new MainPane(Treillis.TreillisTest()), 800,600);
+        //Scene sc = new Scene(new MainPane(Treillis.TreillisTest(), terrain.terrainTest()), 800,600);
+        Scene sc = new Scene(new MainPane(new Treillis(), new terrain()), 800,600);
         stage.setScene(sc);
           stage.show();
     }

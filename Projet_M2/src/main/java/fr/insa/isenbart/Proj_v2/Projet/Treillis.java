@@ -8,19 +8,20 @@ import javafx.scene.paint.Color;
 /**
  * 
  */
-public class Treillis extends Figure
+public class Treillis
 {
 
     private ArrayList<barre> ens_barre = new ArrayList<barre>();
     private ArrayList<noeud> ens_noeud = new ArrayList<noeud>();
     private catalogue cat;
-    private terrain terr;    
+    private terrain terr;   
    
     
     public Treillis() 
     {
         this.ens_barre = new ArrayList<barre>();
         this.ens_noeud = new ArrayList<noeud>();
+        //this.clr = Color.BLUE;                
     }
     
     public Treillis(ArrayList<noeud> ensNd, ArrayList<barre> ensBr) 

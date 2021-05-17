@@ -18,6 +18,7 @@ public abstract class noeud
     public noeud(int id) 
     {
         this.identificateur=id;
+        this.clr = Color.PINK;
     }
     
     public noeud(int id, Color clr) 
@@ -44,10 +45,27 @@ public abstract class noeud
     
     public void dessine(GraphicsContext context)
     {
-        context.setFill(/*this.clr*/ Color.RED);
-        context.fillOval(this.getX()-rayonDessin, this.getY()-rayonDessin, 2*rayonDessin, 2*rayonDessin);
+        context.setFill(this.clr);
+        context.fillOval(this.getX()-getRayonDessin(), this.getY()-getRayonDessin(), 2*getRayonDessin(), 2*getRayonDessin());
     }
-
+    
+    // Si souhaite une couleur particulière pour la sélection, remplacer this.clr par la couleur souhaitée
+    public void dessineSelection(GraphicsContext context)
+    {
+        context.setFill(this.clr);
+        context.fillOval(this.getX()-(getRayonDessin()+2), this.getY()-(getRayonDessin()+2), 2*(getRayonDessin()+2), 2*(getRayonDessin()+2));
+    }
+    
+    public void changeCouleur(Color clr)
+    {
+        this.setColor(clr);
+    }
+    
+    public point getPoint()
+    {
+        return new point(this.getX(), this.getY());
+    }
+    
     /**
      * @return the clr
      */
@@ -67,6 +85,13 @@ public abstract class noeud
     public void setColor(Color clr) 
     {
         this.clr = clr;
+    }
+
+    /**
+     * @return the rayonDessin
+     */
+    public double getRayonDessin() {
+        return rayonDessin;
     }
     
 

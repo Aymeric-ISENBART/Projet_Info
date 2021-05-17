@@ -6,6 +6,7 @@
 package fr.insa.isenbart.Proj_v2.Projet.Interface;
 
 import fr.insa.isenbart.Proj_v2.Projet.Treillis;
+import fr.insa.isenbart.Proj_v2.Projet.terrain;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -14,10 +15,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 /**
  *
  * @author aymer
@@ -28,13 +30,16 @@ public class MainPane extends BorderPane
     
     private Button bPoint;
     private Button bSegment;
+    private Button bTrlgTerrain;
     private Button bAppui;
     private Button bSelect;
+    private Button bSelectBarre;
     private Button bVerrouiller;
     
     private ColorPicker cpCouleur;
     
-    private Treillis tModel;
+    private Treillis trModel;
+    private terrain teModel;
     
     private Controleur control;
     
@@ -43,13 +48,14 @@ public class MainPane extends BorderPane
     
     public MainPane()
     {
-        this(new Treillis());
+        this(new Treillis(), new terrain());
     }
     
-    public MainPane(Treillis tModel)
+    public MainPane(Treillis trModel, terrain teModel)
     {
         this.control = new Controleur(this);
-        this.tModel = tModel;
+        this.trModel = trModel;
+        this.teModel = teModel;
         
         this.bPoint = new Button("Noeud");
         this.bPoint.setOnAction((t) -> 
@@ -71,6 +77,13 @@ public class MainPane extends BorderPane
             this.control.changementEtat(40);
         });
         
+        this.bTrlgTerrain = new Button("TrlgTer");
+        this.bTrlgTerrain.setOnAction((t) -> 
+        {
+            System.out.println("Mode Triangle terrain");
+            this.control.changementEtat(50);
+        });
+        
         this.bSelect = new Button("Select");
         this.bSelect.setOnAction((t) -> 
         {
@@ -78,10 +91,17 @@ public class MainPane extends BorderPane
             this.control.changementEtat(10);
         });
         
+        this.bSelectBarre = new Button("Selection de barre");
+        this.bSelectBarre.setOnAction((t) -> 
+        {
+            System.out.println("Mode Selection de barre");
+            this.control.changementEtat(11);
+        });
+        
         this.cpCouleur = new ColorPicker();
         this.cpCouleur.setOnAction((t) -> 
         {
-            System.out.println("Couleur");
+            this.control.changeCouleur(this.getCpCouleur().getValue());
         });
         
         this.bVerrouiller = new Button("Verrouiller");
@@ -91,7 +111,7 @@ public class MainPane extends BorderPane
             this.control.changementEtat(60);
         });
         
-        HBox hbHaut = new HBox(this.getbPoint(), this.getbSegment(), this.getbAppui(), this.getbSelect(), this.cpCouleur, this.getbVerrouiller());
+        HBox hbHaut = new HBox(this.getbPoint(), this.getbSegment(), this.getbTrlgTerrain(), this.getbAppui(), this.bSelectBarre, this.getbSelect(), this.cpCouleur, this.getbVerrouiller());
         this.setTop(hbHaut);
         
         this.canvas = new DCanvas(this);
@@ -101,7 +121,16 @@ public class MainPane extends BorderPane
             this.control.clicCanvas(t);
         });
         
-        this.control.changementEtat(10);
+        this.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> 
+        {
+            if(key.getCode()==KeyCode.DELETE) 
+            {
+                this.control.supprimer();
+            }
+        });
+        
+        
+        this.control.changementEtat(30);
         
         this.redrawAll();
     }
@@ -149,8 +178,8 @@ public class MainPane extends BorderPane
     /**
      * @return the tModel
      */
-    public Treillis gettModel() {
-        return tModel;
+    public Treillis gettrModel() {
+        return trModel;
     }
 
     /**
@@ -165,6 +194,41 @@ public class MainPane extends BorderPane
      */
     public Button getbVerrouiller() {
         return bVerrouiller;
+    }
+
+    /**
+     * @param canvas the canvas to set
+     */
+    public void setCanvas(DCanvas canvas) {
+        this.canvas = canvas;
+    }
+
+    /**
+     * @return the control
+     */
+    public Controleur getControl() {
+        return control;
+    }
+
+    /**
+     * @return the teModel
+     */
+    public terrain getTeModel() {
+        return teModel;
+    }
+
+    /**
+     * @return the bTrlgTerrain
+     */
+    public Button getbTrlgTerrain() {
+        return bTrlgTerrain;
+    }
+
+    /**
+     * @param bTrlgTerrain the bTrlgTerrain to set
+     */
+    public void setbTrlgTerrain(Button bTrlgTerrain) {
+        this.bTrlgTerrain = bTrlgTerrain;
     }
     
     

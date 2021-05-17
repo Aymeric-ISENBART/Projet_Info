@@ -1,6 +1,7 @@
 package fr.insa.isenbart.Proj_v2.Projet;
 
 import java.util.*;
+import javafx.scene.paint.Color;
 
 
 public class appui_encastré extends noeud_appui
@@ -27,5 +28,10 @@ public class appui_encastré extends noeud_appui
     public void setAppui(point appui) 
     {
         this.appui = appui;
+    }
+
+    @Override
+    public void changeCouleur(Color clr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -24,6 +24,7 @@ public class barre
         this.identitficateur = id;
         this.nd1 = nd1;
         this.nd2 = nd2;
+        this.clr = Color.BLUE;
     }
     
     public barre(int id, noeud nd1, noeud nd2, type_b typB) 
@@ -32,6 +33,7 @@ public class barre
         this.nd1 = nd1;
         this.nd2 = nd2;
         this.type = typB;
+        this.clr = Color.BLUE;
     }
 
     public double distPoint(point pt)
@@ -43,22 +45,51 @@ public class barre
         double x3 = pt.getPx();
         double y3 = pt.getPy();
         
-        double up = ((x3-x1)*(x2-x1) + (y3-y1)*(y2-y1)) / (Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+        segment seg12 = new segment(this.nd1.getPoint(), this.nd2.getPoint());
+        segment seg13 = new segment(this.nd1.getPoint(), pt);
         
-        if (up<0)
+        double lg12 = seg12.longueur();
+        double lg13 = seg13.longueur();
+        
+        double up = ((x3-x1)*(x2-x1) + (y3-y1)*(y2-y1)) / (lg12 * lg13);
+        
+        if((up == 1) || (up == -1))
+        {
+            return 0;
+        }
+        else if(up == 0)
         {
             return this.nd1.distPoint(pt);
         }
-        else if(up>1)
-        {
-            return this.nd2.distPoint(pt);
-        }
         else
         {
-            point p4 = new point(x1 + up*(x2-x1), y1 + up*(y2-y1));
+            point p4 = new point(this.nd1.getX()*up, this.nd1.getX()*Math.tan(Math.acos(up)));
             
             return p4.distPoint(pt);
         }
+    }
+    
+    public void dessineSelection(GraphicsContext context)
+    {
+        this.getNd1().dessineSelection(context);
+        this.getNd2().dessineSelection(context);
+        
+        context.setStroke(Color.RED);
+        context.strokeLine(this.nd1.getX(), this.nd1.getY(), this.nd2.getX(), this.nd2.getY());
+        context.setLineWidth(2);
+    }
+    
+    public void dessine(GraphicsContext context)
+    {
+        context.setStroke(this.clr);
+        context.strokeLine(this.nd1.getX(), this.nd1.getY(), this.nd2.getX(), this.nd2.getY());
+        context.setLineWidth(1);
+
+    }
+    
+    public void changeCouleur(Color clr)
+    {
+        this.setClr(clr);
     }
     
     
@@ -110,16 +141,19 @@ public class barre
     }
     
     
-    public void dessine(GraphicsContext context)
-    {
-        context.setStroke(/*this.clr*/Color.BLUE);
-        context.strokeLine(this.nd1.getX(), this.nd1.getY(), this.nd2.getX(), this.nd2.getY());
-    }
+    
     
     @Override
     public String toString()
     {
         return "[" + this.nd1.toString() + "," + this.nd2.toString() + "]";
+    }
+
+    /**
+     * @param clr the clr to set
+     */
+    public void setClr(Color clr) {
+        this.clr = clr;
     }
 
 

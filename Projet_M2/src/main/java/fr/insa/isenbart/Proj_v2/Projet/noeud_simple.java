@@ -11,6 +11,7 @@ public class noeud_simple extends noeud
     private point Pt;
     private Color clr;
     
+    
     public noeud_simple(int id, point pt)
     {
         super(id);
