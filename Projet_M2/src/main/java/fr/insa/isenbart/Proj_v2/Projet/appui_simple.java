@@ -2,6 +2,7 @@ package fr.insa.isenbart.Proj_v2.Projet;
 
 
 import java.util.*;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
@@ -35,8 +36,35 @@ public class appui_simple extends noeud_appui
     }
 
     @Override
-    public void changeCouleur(Color clr) {
+    public void changeCouleur(Color clr) 
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void dessine(GraphicsContext context)
+    {
+        context.setFill(this.getClr());
+        context.fillOval(this.getX()-this.getRayonDessin(), this.getY()-this.getRayonDessin(), 2*this.getRayonDessin(), 2*this.getRayonDessin());
+        
+    }
+    
+    @Override
+    public double getX()
+    {
+        return this.appui.getPx();
+    }
+    
+    @Override
+    public double getY()
+    {
+        return this.appui.getPy();
+    }
+
+    @Override
+    public void dessineSelection(GraphicsContext context) 
+    {
+        context.setFill(this.getClr());
+        context.fillOval(this.getX()-(this.getRayonDessin()+2), this.getY()-(this.getRayonDessin()+2), 2*(this.getRayonDessin()+2), 2*(this.getRayonDessin()+2));
     }
 
 }

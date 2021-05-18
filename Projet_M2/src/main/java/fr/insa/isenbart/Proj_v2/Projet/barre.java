@@ -38,35 +38,23 @@ public class barre
 
     public double distPoint(point pt)
     {
-        double x1 = this.nd1.getX();
-        double y1 = this.nd1.getY();
-        double x2 = this.nd2.getX();
-        double y2 = this.nd2.getY();
-        double x3 = pt.getPx();
-        double y3 = pt.getPy();
-        
         segment seg12 = new segment(this.nd1.getPoint(), this.nd2.getPoint());
         segment seg13 = new segment(this.nd1.getPoint(), pt);
         
         double lg12 = seg12.longueur();
         double lg13 = seg13.longueur();
         
-        double up = ((x3-x1)*(x2-x1) + (y3-y1)*(y2-y1)) / (lg12 * lg13);
+        double cosAngle = ((this.nd2.getX()-this.nd1.getX())*(pt.getPx()-this.nd1.getX()) + (this.nd2.getY()-this.nd1.getY())*(pt.getPy()-this.nd1.getY()))/(lg12 * lg13);
         
-        if((up == 1) || (up == -1))
-        {
-            return 0;
-        }
-        else if(up == 0)
-        {
-            return this.nd1.distPoint(pt);
-        }
-        else
-        {
-            point p4 = new point(this.nd1.getX()*up, this.nd1.getX()*Math.tan(Math.acos(up)));
-            
-            return p4.distPoint(pt);
-        }
+        double lg14 = lg13*cosAngle;
+        double rapp = lg14/lg12;
+        
+        double p4x = this.nd1.getX() + rapp*(this.nd2.getX()-this.nd1.getX());
+        double p4y = this.nd1.getY() + rapp*(this.nd2.getY()-this.nd1.getY());
+        
+        point p4 = new point(p4x, p4y);
+        
+        return p4.distPoint(pt);
     }
     
     public void dessineSelection(GraphicsContext context)

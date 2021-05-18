@@ -16,13 +16,17 @@ public class noeud_simple extends noeud
     {
         super(id);
         this.Pt = pt;
+        this.clr = Color.PINK;
     }
     
-    public noeud_simple(int id, Color clr, point pt)
+    public noeud_simple(int id, Color col, point pt)
     {
-        super(id, clr);
+        super(id);
         this.Pt = pt;
+        this.clr = col;
     }
+    
+
     
     
     public point getPt() 
@@ -46,5 +50,25 @@ public class noeud_simple extends noeud
     {
         return this.Pt.getPy();
 
+    }
+
+    @Override
+    public void dessine(GraphicsContext context) 
+    {
+        context.setFill(this.clr);
+        context.fillOval(this.getX()-getRayonDessin(), this.getY()-this.getRayonDessin(), 2*this.getRayonDessin(), 2*this.getRayonDessin());
+    }
+
+    @Override
+    public void dessineSelection(GraphicsContext context) 
+    {
+        context.setFill(this.clr);
+        context.fillOval(this.getX()-(getRayonDessin()+2), this.getY()-(this.getRayonDessin()+2), 2*(this.getRayonDessin()+2), 2*(this.getRayonDessin()+2));
+    }
+
+    @Override
+    public void changeCouleur(Color color) 
+    {
+        this.clr = color;
     }
 }

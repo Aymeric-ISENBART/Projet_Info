@@ -33,7 +33,6 @@ public class MainPane extends BorderPane
     private Button bTrlgTerrain;
     private Button bAppui;
     private Button bSelect;
-    private Button bSelectBarre;
     private Button bVerrouiller;
     
     private ColorPicker cpCouleur;
@@ -66,37 +65,29 @@ public class MainPane extends BorderPane
         this.bAppui = new Button("Appui");
         this.bAppui.setOnAction((t) -> 
         {
-            System.out.println("Mode Appui");
+            this.control.changementEtat(20);
         });
         
         
-        this.bSegment = new Button("Segment");
+        this.bSegment = new Button("Barre");
         this.bSegment.setOnAction((t) -> 
         {
-            System.out.println("Mode Segment");
             this.control.changementEtat(40);
         });
         
         this.bTrlgTerrain = new Button("TrlgTer");
         this.bTrlgTerrain.setOnAction((t) -> 
         {
-            System.out.println("Mode Triangle terrain");
             this.control.changementEtat(50);
         });
         
-        this.bSelect = new Button("Select");
+        this.bSelect = new Button("Selection Noeud");
         this.bSelect.setOnAction((t) -> 
         {
-            System.out.println("Mode Select");
             this.control.changementEtat(10);
         });
         
-        this.bSelectBarre = new Button("Selection de barre");
-        this.bSelectBarre.setOnAction((t) -> 
-        {
-            System.out.println("Mode Selection de barre");
-            this.control.changementEtat(11);
-        });
+        
         
         this.cpCouleur = new ColorPicker();
         this.cpCouleur.setOnAction((t) -> 
@@ -107,11 +98,10 @@ public class MainPane extends BorderPane
         this.bVerrouiller = new Button("Verrouiller");
         this.bVerrouiller.setOnAction((t) -> 
         {
-            System.out.println("Verrouiller");
             this.control.changementEtat(60);
         });
         
-        HBox hbHaut = new HBox(this.getbPoint(), this.getbSegment(), this.getbTrlgTerrain(), this.getbAppui(), this.bSelectBarre, this.getbSelect(), this.cpCouleur, this.getbVerrouiller());
+        HBox hbHaut = new HBox(this.getbPoint(), this.getbSegment(), this.getbTrlgTerrain(), this.getbAppui(), this.getbSelect(), this.cpCouleur, this.getbVerrouiller());
         this.setTop(hbHaut);
         
         this.canvas = new DCanvas(this);
@@ -230,6 +220,8 @@ public class MainPane extends BorderPane
     public void setbTrlgTerrain(Button bTrlgTerrain) {
         this.bTrlgTerrain = bTrlgTerrain;
     }
+
+
     
     
     

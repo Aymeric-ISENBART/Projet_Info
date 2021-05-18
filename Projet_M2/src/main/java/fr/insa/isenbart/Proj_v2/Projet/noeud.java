@@ -12,21 +12,13 @@ public abstract class noeud
 
     private int identificateur;
     private double rayonDessin = 3;
-    private Color clr;
     //private point Pt;
     
     public noeud(int id) 
     {
         this.identificateur=id;
-        this.clr = Color.PINK;
     }
-    
-    public noeud(int id, Color clr) 
-    {
-        this.identificateur=id;
-        this.clr=clr;
-    }
-    
+        
     public int getId()
     {
         return this.identificateur;
@@ -43,23 +35,11 @@ public abstract class noeud
 
     
     
-    public void dessine(GraphicsContext context)
-    {
-        context.setFill(this.clr);
-        context.fillOval(this.getX()-getRayonDessin(), this.getY()-getRayonDessin(), 2*getRayonDessin(), 2*getRayonDessin());
-    }
+    public abstract void dessine(GraphicsContext context);
+    public abstract void dessineSelection(GraphicsContext context);
+    public abstract void changeCouleur(Color color);
     
-    // Si souhaite une couleur particulière pour la sélection, remplacer this.clr par la couleur souhaitée
-    public void dessineSelection(GraphicsContext context)
-    {
-        context.setFill(this.clr);
-        context.fillOval(this.getX()-(getRayonDessin()+2), this.getY()-(getRayonDessin()+2), 2*(getRayonDessin()+2), 2*(getRayonDessin()+2));
-    }
-    
-    public void changeCouleur(Color clr)
-    {
-        this.setColor(clr);
-    }
+
     
     public point getPoint()
     {
@@ -69,10 +49,6 @@ public abstract class noeud
     /**
      * @return the clr
      */
-    public Color getColor() 
-    {
-        return clr;
-    }
     
     public double distPoint(point pt)
     {
@@ -82,10 +58,6 @@ public abstract class noeud
     /**
      * @param clr the clr to set
      */
-    public void setColor(Color clr) 
-    {
-        this.clr = clr;
-    }
 
     /**
      * @return the rayonDessin

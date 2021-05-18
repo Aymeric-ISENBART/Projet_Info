@@ -76,6 +76,23 @@ public class triangle_terrain
         {
             context.setStroke(this.getClr());
             context.strokeLine(s.getP1().getPx(), s.getP1().getPy(), s.getP2().getPx(), s.getP2().getPy());
+            context.setLineWidth(1);
+        }
+    }
+    
+    public void dessineSelection(GraphicsContext context)
+    {
+        for(point p : this.getPts())
+        {
+            context.setFill(Color.RED);
+            context.fillOval(p.getPx()-(getRayonDessin()+2), p.getPy()-(getRayonDessin()+2), 2*(getRayonDessin()+2), 2*(getRayonDessin()+2));
+        }
+        
+        for(segment s : this.getSegs())
+        {
+            context.setStroke(Color.RED);
+            context.strokeLine(s.getP1().getPx(), s.getP1().getPy(), s.getP2().getPx(), s.getP2().getPy());
+            context.setLineWidth(2);
         }
     }
 

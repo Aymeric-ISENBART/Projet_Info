@@ -6,14 +6,18 @@
 package fr.insa.isenbart.Proj_v2.Projet.Interface;
 
 import fr.insa.isenbart.Proj_v2.Projet.Treillis;
+import fr.insa.isenbart.Proj_v2.Projet.appui_simple;
 import fr.insa.isenbart.Proj_v2.Projet.barre;
 import fr.insa.isenbart.Proj_v2.Projet.noeud;
+import fr.insa.isenbart.Proj_v2.Projet.noeud_appui;
 import fr.insa.isenbart.Proj_v2.Projet.noeud_simple;
 import fr.insa.isenbart.Proj_v2.Projet.point;
+import fr.insa.isenbart.Proj_v2.Projet.segment;
 import fr.insa.isenbart.Proj_v2.Projet.triangle_terrain;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 
 /**
@@ -31,6 +35,8 @@ public class Controleur
     
     private ArrayList<barre> listBSelect;
     private ArrayList<noeud> listNSelect;
+    private ArrayList<triangle_terrain> listTTSelect;
+    private segment Sselect;
     
     private Color newCol;
 
@@ -39,6 +45,7 @@ public class Controleur
     {
         this.main= main;
         this.listBSelect = new ArrayList<barre>();
+        this.listTTSelect = new ArrayList<triangle_terrain>();
         this.listNSelect = new ArrayList<noeud>();
     }
     
@@ -46,52 +53,81 @@ public class Controleur
     
     public void changementEtat(int nvEtat)
     {
-        switch(nvEtat)
+        if((nvEtat != 10) && (nvEtat != 11) && (nvEtat != 12))
         {
-            case 10:
-                                
-            break;
-            
-            case 30:
-               
-            break;
-            
-            case 40:
-                                
-            break;
-            
-            case 60 :
-                if(!isVer())
-                {
-                    this.getMain().getbAppui().setDisable(true);
-                    this.getMain().getbPoint().setDisable(true);
-                    this.getMain().getbSegment().setDisable(true);
-                    this.getMain().getbSelect().setDisable(true);
-                    this.getMain().getCpCouleur().setDisable(true);
-                    this.getMain().getbVerrouiller().setText("Déverrouiller");
-                }
-                else
-                {
-                    this.getMain().getbAppui().setDisable(false);
-                    this.getMain().getbPoint().setDisable(false);
-                    this.getMain().getbSegment().setDisable(false);
-                    this.getMain().getbSelect().setDisable(false);
-                    this.getMain().getCpCouleur().setDisable(false);
-                    this.getMain().getbVerrouiller().setText("Verrouiller");
-                }
-                
-                ver = !isVer();
-                
-            break;            
+            switch(nvEtat)
+            {
+                case 30:
+
+                break;
+
+                case 40:
+
+                break;
+
+                case 60 :
+                    if(!isVer())
+                    {
+                        this.getMain().getbAppui().setDisable(true);
+                        this.getMain().getbPoint().setDisable(true);
+                        this.getMain().getbSegment().setDisable(true);
+                        this.getMain().getbSelect().setDisable(true);
+                        this.getMain().getCpCouleur().setDisable(true);
+                        this.getMain().getbVerrouiller().setText("Déverrouiller");
+                    }
+                    else
+                    {
+                        this.getMain().getbAppui().setDisable(false);
+                        this.getMain().getbPoint().setDisable(false);
+                        this.getMain().getbSegment().setDisable(false);
+                        this.getMain().getbSelect().setDisable(false);
+                        this.getMain().getCpCouleur().setDisable(false);
+                        this.getMain().getbVerrouiller().setText("Verrouiller");
+                    }
+
+                    ver = !isVer();
+
+                break;
+            }
+
+            this.etat = nvEtat;
         }
-        
-        this.etat = nvEtat;
+        else
+        {
+            switch(this.etat)
+            {
+                case 10 :
+                    this.etat = 11;
+                    this.main.getbSelect().setText("Selection Barre");
+                break;
+                
+                case 11 :
+                    this.etat = 12;
+                    this.main.getbSelect().setText("Selection Triangle terr");
+
+                break;
+                
+                case 12 :
+                    this.etat = 10;
+                    this.main.getbSelect().setText("Selection Noeud");
+                break;
+                
+                default :
+                    this.etat = 10;
+                    this.main.getbSelect().setText("Selection Noeud");
+                break;
+            }
+        }
     }
     
     /**
-     * 10 : Selection de noeud
+     * 10 : Selection de noeud(s)
+     * 11 : Selection de barre(s)
+     * 12 : Sélection de triangle(s) de terrain
      * 
-     * 20 : Création appui
+     * 20 : Création d'appuis
+     *      > 20 : Selectionne un segment d'un triangle de terrain (> etat = 21)
+     *      > 21 : Crée l'appui si possible
      * 
      * 30 : Créations de points
      * 
@@ -111,13 +147,13 @@ public class Controleur
      * 60 : Verrouiller
      *  
      */
+    
     public void clicCanvas(MouseEvent t)
     {
         ArrayList<noeud> ensNd = this.getMain().gettrModel().getEns_noeud();
         ArrayList<barre> ensBr = this.getMain().gettrModel().getEns_barre();
         ArrayList<triangle_terrain> ensTrTerr = this.getMain().getTeModel().getEns_triangle_terrain();
         noeud_simple nvNd;
-        //noeud ndProche;
         point ptClic;
         
         switch(this.getEtat())
@@ -125,7 +161,9 @@ public class Controleur
             case 10:
                 ptClic = new point(t.getX(), t.getY());
                 noeud ndProche = NoeudProche(ptClic);
+                
                 this.listBSelect.clear();
+                this.listTTSelect.clear();
                 
                 if(this.getListNSelect().size() == 0)
                 {
@@ -180,6 +218,7 @@ public class Controleur
                 barre BarreProche = BarreProche(ptClic);
                 
                 this.listNSelect.clear();
+                this.listTTSelect.clear();
                 
                 if(this.getListBSelect().size() == 0)
                 {
@@ -230,11 +269,97 @@ public class Controleur
 
             break;
             
+            case 12 :
+                ptClic = new point(t.getX(), t.getY());
+                segment segProche = SegmentProche(ptClic);
+                triangle_terrain terrProche = TriangleProche(segProche);
+                
+                this.listBSelect.clear();
+                this.listNSelect.clear();
+                
+                if(this.listTTSelect.isEmpty())
+                {
+                    this.listTTSelect.add(terrProche);
+                }
+                else
+                {
+                    if(t.isShiftDown())
+                    {
+                        if(!this.listTTSelect.contains(terrProche))
+                        {
+                            this.listTTSelect.add(terrProche);
+                        }
+                    }
+                    
+                    else if(t.isControlDown())
+                    {
+                        if(!this.listTTSelect.contains(terrProche))
+                        {
+                            this.listTTSelect.add(terrProche);
+                        }          
+                        else
+                        {
+                            this.listTTSelect.remove(terrProche);
+                        }
+                    }
+                    
+                    else if(t.isAltDown())
+                    {
+                        this.listTTSelect.clear();
+                    }
+                    else
+                    {
+                        this.listTTSelect.clear();
+                        this.listTTSelect.add(terrProche);
+                    }
+                }
+                
+                this.main.redrawAll();
+            break;
+            
+            
+            
+            case 20 :
+                this.listBSelect.clear();
+                this.listNSelect.clear();
+                
+                this.main.redrawAll();
+                
+                ptClic = new point(t.getX(), t.getY());
+                
+                this.Sselect = SegmentProche(ptClic);
+                
+                this.main.redrawAll();
+                this.etat = 21;
+            break;
+            
+            case 21 :
+                ptClic = new point(t.getX(), t.getY());
+                triangle_terrain tt = TriangleProche(this.Sselect);
+                
+                if(!(ptClic.getPx() < this.Sselect.getMinX()) && !(ptClic.getPx() > this.Sselect.getMaxX()))
+                {
+                    if(!(ptClic.getPy() < this.Sselect.getMinY()) && !(ptClic.getPy() > this.Sselect.getMaxY()))
+                    {
+                        point App = this.Sselect.PointNormal(ptClic);
+                        
+                        appui_simple aS = new appui_simple(this.main.gettrModel().getEns_noeud().size(), tt, this.Sselect, App);
+                        this.main.gettrModel().getEns_noeud().add(aS);
+
+                        this.etat = 20;
+                        
+                        this.listTTSelect.clear();
+
+                    }
+                }
+                this.main.redrawAll();
+            break;
+            
             
             case 30 :
                 if(this.newCol != null)
                 {
-                    nvNd = new noeud_simple(ensNd.size(),newCol, new point(t.getX(), t.getY()));                
+                    nvNd = new noeud_simple(ensNd.size(), newCol, new point(t.getX(), t.getY()));                
                 }
                 else
                 {
@@ -369,6 +494,61 @@ public class Controleur
     }
     
     
+    public triangle_terrain TriangleProche(segment seg)
+    {
+        if(this.main.getTeModel().getEns_triangle_terrain().isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            triangle_terrain trlgProche = null;
+            for(triangle_terrain tt : this.main.getTeModel().getEns_triangle_terrain())
+            {
+                if(tt.getSegs().contains(seg))
+                {
+                    trlgProche = tt;
+                }
+            }
+            
+            return trlgProche;
+        }
+    }
+    
+    public segment SegmentProche(point pt)
+    {
+        double distS;
+        segment Seg;
+        
+        if(this.main.getTeModel().getEns_triangle_terrain().isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            double cur;
+            
+            Seg = this.main.getTeModel().getEns_triangle_terrain().get(0).getSegs().get(0);
+            distS = Seg.distPoint(pt);
+            
+            for(triangle_terrain tt : this.main.getTeModel().getEns_triangle_terrain())
+            {
+                for(int i=0; i < tt.getSegs().size(); i++)
+                {
+                    cur = tt.getSegs().get(i).distPoint(pt);
+                    
+                    if(cur < distS)
+                    {
+                        distS = cur;
+                        Seg = tt.getSegs().get(i);
+                    }
+                }
+            }
+        }
+        
+        return Seg;
+    }
+    
     public barre BarreProche(point pt)
     {
         double distB;
@@ -383,8 +563,9 @@ public class Controleur
         }
         else
         {
-            distB = this.getMain().gettrModel().getEns_barre().get(0).distPoint(pt);
             b = this.getMain().gettrModel().getEns_barre().get(0);
+            distB = b.distPoint(pt);
+            
             
             for(int i=0; i<this.getMain().gettrModel().getEns_barre().size(); i++)
             {
@@ -413,8 +594,8 @@ public class Controleur
         }
         else
         {
-            distN = this.getMain().gettrModel().getEns_noeud().get(0).distPoint(pt);
             Nd = this.getMain().gettrModel().getEns_noeud().get(0);
+            distN = Nd.distPoint(pt);
 
             for(int i=1; i<this.getMain().gettrModel().getEns_noeud().size(); i++)
             {
@@ -508,6 +689,15 @@ public class Controleur
             }
             this.listBSelect.clear();
         }
+        
+        if(this.listTTSelect.size() != 0)
+        {
+            for(triangle_terrain tt : this.listTTSelect)
+            {
+                this.main.getTeModel().getEns_triangle_terrain().remove(tt);
+            }
+            this.listTTSelect.clear();
+        }
 
         this.main.redrawAll();
     }
@@ -561,5 +751,13 @@ public class Controleur
      */
     public point[] getPts() {
         return pts;
+    }
+
+    /**
+     * @return the ListSSelect
+     */
+    public ArrayList<triangle_terrain> getListTTSelect() 
+    {
+        return listTTSelect;
     }
 }

@@ -9,6 +9,7 @@ import fr.insa.isenbart.Proj_v2.Projet.Treillis;
 import fr.insa.isenbart.Proj_v2.Projet.barre;
 import fr.insa.isenbart.Proj_v2.Projet.noeud;
 import fr.insa.isenbart.Proj_v2.Projet.point;
+import fr.insa.isenbart.Proj_v2.Projet.segment;
 import fr.insa.isenbart.Proj_v2.Projet.terrain;
 import fr.insa.isenbart.Proj_v2.Projet.triangle_terrain;
 import java.util.ArrayList;
@@ -76,6 +77,15 @@ public class DCanvas extends Pane
             for(barre b : SelectBarre)
             {
                 b.dessineSelection(context);
+            }
+        }
+        
+        ArrayList<triangle_terrain> SelectTrlgTerr = this.main.getControl().getListTTSelect();
+        if(!SelectTrlgTerr.isEmpty())
+        {
+            for(triangle_terrain tt : SelectTrlgTerr)
+            {
+                tt.dessineSelection(context);
             }
         }
         

@@ -2,6 +2,8 @@ package fr.insa.isenbart.Proj_v2.Projet;
 
 
 import java.util.*;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -12,12 +14,16 @@ public abstract class noeud_appui extends noeud
     private triangle_terrain trgl_terrain;
     private segment seg_trlg_terrain;
     
+    private double rayonDessin = 3;
+    private Color clr;
+    
     
     public noeud_appui(int id, triangle_terrain trlg, segment seg) 
     {
         super(id);
         this.seg_trlg_terrain = seg;
         this.trgl_terrain = trlg;
+        this.clr = Color.ORANGERED;
     }
 
     public double getX()
@@ -29,6 +35,12 @@ public abstract class noeud_appui extends noeud
     {
         return this.getY();
     }
+    
+    public void dessine(GraphicsContext context)
+    {
+        
+    }
+            
     
     
     
@@ -53,6 +65,20 @@ public abstract class noeud_appui extends noeud
     public void setSeg_trlg_terrain(segment seg_trlg_terrain) 
     {
         this.seg_trlg_terrain = seg_trlg_terrain;
+    }
+
+    /**
+     * @return the rayonDessin
+     */
+    public double getRayonDessin() {
+        return rayonDessin;
+    }
+
+    /**
+     * @return the clr
+     */
+    public Color getClr() {
+        return clr;
     }
 
 }
