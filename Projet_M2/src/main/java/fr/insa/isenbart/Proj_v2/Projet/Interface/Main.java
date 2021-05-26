@@ -18,12 +18,16 @@ import javafx.stage.Stage;
  */
 public class Main extends Application 
 {
+    
+    private Treillis treil = new Treillis();
+    private terrain ter = new terrain();
+    
 
     @Override
     public void start(Stage stage) 
     {
         //Scene sc = new Scene(new MainPane(Treillis.TreillisTest(), terrain.terrainTest()), 800,600);
-        Scene sc = new Scene(new MainPane(new Treillis(), new terrain()), 800,600);
+        Scene sc = new Scene(new MainPane(getTreil(), getTer()), 800,600);
         stage.setScene(sc);
           stage.show();
     }
@@ -32,5 +36,21 @@ public class Main extends Application
     {
         launch();
     }
+
+    /**
+     * @return the treil
+     */
+    public Treillis getTreil() {
+        return treil;
+    }
+
+    /**
+     * @return the ter
+     */
+    public terrain getTer() {
+        return ter;
+    }
+    
+    
 
 }

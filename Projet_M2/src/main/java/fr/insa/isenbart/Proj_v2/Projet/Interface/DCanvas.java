@@ -56,12 +56,17 @@ public class DCanvas extends Pane
         Treillis trModel = this.main.gettrModel();
         terrain teModel = this.main.getTeModel();
         
+        // Gère la couleur de fond
         context.setFill(Color.WHITE);
         context.fillRect(0, 0, this.getWidth(), this.getHeight());
         
+        // Dessine le treillis
         trModel.dessine(context);
+        // Dessine le terrain
         teModel.dessine(context);
-                
+        
+
+        // Dessine la sélection de noeud        
         ArrayList<noeud> SelectNd = this.main.getControl().getListNSelect();
         if(!SelectNd.isEmpty())
         {
@@ -71,6 +76,7 @@ public class DCanvas extends Pane
             }
         } 
         
+        // Dessine la sélection de barre        
         ArrayList<barre> SelectBarre = this.main.getControl().getListBSelect();
         if(!SelectBarre.isEmpty())
         {
@@ -80,6 +86,7 @@ public class DCanvas extends Pane
             }
         }
         
+        // Dessine la sélection de TDT        
         ArrayList<triangle_terrain> SelectTrlgTerr = this.main.getControl().getListTTSelect();
         if(!SelectTrlgTerr.isEmpty())
         {
@@ -89,8 +96,10 @@ public class DCanvas extends Pane
             }
         }
         
+        
         final double rayonDessin = 3;
         
+        // Dessine le premier point pour créer le triangle de terrain
         point p1 = this.main.getControl().getPts()[0];
         if(p1 != null)
         {
@@ -98,11 +107,19 @@ public class DCanvas extends Pane
             context.fillOval(p1.getPx()-rayonDessin, p1.getPy()-rayonDessin, 2*rayonDessin, 2*rayonDessin);
         }
         
+        // Dessine le second point pour créer le triangle de terrain
         point p2 = this.main.getControl().getPts()[1];
         if(p2 != null)
         {
             context.setFill(Color.YELLOWGREEN);
             context.fillOval(p2.getPx()-rayonDessin, p2.getPy()-rayonDessin, 2*rayonDessin, 2*rayonDessin);
         }
+        
+        /*segment segAppui = this.main.getControl().getSselect();
+        if(segAppui != null)
+        {
+            segAppui.dessineSelection(context, Color.BLUE);
+        }*/
+        
     }
 }

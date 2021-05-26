@@ -57,14 +57,6 @@ public class Controleur
         {
             switch(nvEtat)
             {
-                case 30:
-
-                break;
-
-                case 40:
-
-                break;
-
                 case 60 :
                     if(!isVer())
                     {
@@ -72,21 +64,31 @@ public class Controleur
                         this.getMain().getbPoint().setDisable(true);
                         this.getMain().getbSegment().setDisable(true);
                         this.getMain().getbSelect().setDisable(true);
-                        this.getMain().getCpCouleur().setDisable(true);
+                        //this.getMain().getCpCouleur().setDisable(true);
+                        this.getMain().getbTrlgTerrain().setDisable(true);
                         this.getMain().getbVerrouiller().setText("Déverrouiller");
                     }
                     else
                     {
+                        this.getMain().getbTrlgTerrain().setDisable(false);
                         this.getMain().getbAppui().setDisable(false);
                         this.getMain().getbPoint().setDisable(false);
                         this.getMain().getbSegment().setDisable(false);
                         this.getMain().getbSelect().setDisable(false);
-                        this.getMain().getCpCouleur().setDisable(false);
+                        //this.getMain().getCpCouleur().setDisable(false);
                         this.getMain().getbVerrouiller().setText("Verrouiller");
                     }
 
                     ver = !isVer();
 
+                break;
+                
+                case 70 :
+                    System.out.println("Sauvegarder");
+                break;
+                
+                case 80:
+                    System.out.println("Calculer");
                 break;
             }
 
@@ -158,6 +160,24 @@ public class Controleur
         
         switch(this.getEtat())
         {
+            /**
+             * 10 : Selection de noeud(s)
+             * Lorsque la sélection de noeud est sélectionnée :
+             * 
+             * Les listes de sélection de barre et de Triangle de terrain sont vidées
+             * 
+             * Si aucun noeud n'est encore sélectionné, on place ce noeud dans la liste de sélection (de noeud)
+             * Sinon :
+             *      Si le bouton SHIFT est appuyé, on ajoute ce noeud à la liste de sélection (s'il n'y est pas déjà)
+             *      Si le bouton CONTROL est appuyé :
+             *          Si le noeud est déjà dans la liste de sélection, on le retire
+             *          Si le noeud n'est pas déjà dans la liste de sélection, on l'ajoute
+             *      Si le bouton ALT est appuyé, on vide la liste de sélection
+             *      Sinon seul le noeud sélectionné est dans la liste de sélection
+             * 
+             * On redessine tout
+
+             */
             case 10:
                 ptClic = new point(t.getX(), t.getY());
                 noeud ndProche = NoeudProche(ptClic);
@@ -177,7 +197,7 @@ public class Controleur
                         if(!this.listNSelect.contains(ndProche))
                         {
                             this.getListNSelect().add(ndProche);
-                            System.out.println(this.getListNSelect());
+                            //System.out.println(this.getListNSelect());
                         }
                         
                     }
@@ -192,13 +212,13 @@ public class Controleur
                             this.getListNSelect().add(ndProche);
                         }
                         
-                        System.out.println(this.getListNSelect());
+                        //System.out.println(this.getListNSelect());
 
                     }
                     else if(t.isAltDown())
                     {
                         this.listNSelect.clear();
-                        System.out.println(this.listNSelect);
+                        //System.out.println(this.listNSelect);
                     }
                     
                     else
@@ -206,13 +226,30 @@ public class Controleur
                         this.getListNSelect().clear();
                         this.getListNSelect().add(ndProche);
 
-                        System.out.println(this.getListNSelect());
+                        //System.out.println(this.getListNSelect());
                     }
                 }
                 
                 this.main.redrawAll();
             break;
             
+            /**
+             * 11 : Selection de barre(s)
+             * Lorsque la sélection de barre est sélectionnée :
+             * 
+             * Les listes de sélection de noeud et de Triangle-de-terrain sont vidées
+             * 
+             * Si aucune barre n'est encore sélectionnée, on place cette barre dans la liste de sélection (de barre)
+             * Sinon :
+             *      Si le bouton SHIFT est appuyé, on ajoute cette varre à la liste de sélection (si elle n'y est pas déjà)
+             *      Si le bouton CONTROL est appuyé :
+             *          Si la barre est déjà dans la liste de sélection, on la retire
+             *          Si la barre n'est pas déjà dans la liste de sélection, on l'ajoute
+             *      Si le bouton ALT est appuyé, on vide la liste de sélection
+             *      Sinon seul la barre sélectionnée est dans la liste de sélection
+             * 
+             * On redessine tout
+             */
             case 11:
                 ptClic = new point(t.getX(), t.getY());
                 barre BarreProche = BarreProche(ptClic);
@@ -232,7 +269,7 @@ public class Controleur
                         if(!this.listBSelect.contains(BarreProche))
                         {
                             this.getListBSelect().add(BarreProche);
-                            System.out.println(this.getListBSelect());
+                            //System.out.println(this.getListBSelect());
                         }
                         
                     }
@@ -247,13 +284,13 @@ public class Controleur
                             this.getListBSelect().add(BarreProche);
                         }
                         
-                        System.out.println(this.getListBSelect());
+                        //System.out.println(this.getListBSelect());
 
                     }
                     else if(t.isAltDown())
                     {
                         this.listBSelect.clear();
-                        System.out.println(this.listBSelect);
+                        //System.out.println(this.listBSelect);
                     }
                     
                     else
@@ -261,7 +298,7 @@ public class Controleur
                         this.getListBSelect().clear();
                         this.getListBSelect().add(BarreProche);
 
-                        System.out.println(this.getListBSelect());
+                        //System.out.println(this.getListBSelect());
                     }
                 }
                 
@@ -269,10 +306,27 @@ public class Controleur
 
             break;
             
+            /**
+             * 12 : Selection de triangle(s)-de-terrain
+             * Lorsque la sélection de triangle-de-terrain TDT est sélectionnée :
+             * 
+             * Les listes de sélection de noeud et de barre sont vidées
+             * 
+             * Si aucun TDT n'est encore sélectionnée, on place ce TDT dans la liste de sélection (de TDT)
+             * Sinon :
+             *      Si le bouton SHIFT est appuyé, on ajoute ce TDT à la liste de sélection (s'il n'y est pas déjà)
+             *      Si le bouton CONTROL est appuyé :
+             *          Si le TDT est déjà dans la liste de sélection, on le retire
+             *          Si le TDT n'est pas déjà dans la liste de sélection, on l'ajoute
+             *      Si le bouton ALT est appuyé, on vide la liste de sélection
+             *      Sinon seul le TDT sélectionné est dans la liste de sélection
+             * 
+             * On redessine tout
+             */
             case 12 :
                 ptClic = new point(t.getX(), t.getY());
-                segment segProche = SegmentProche(ptClic);
-                triangle_terrain terrProche = TriangleProche(segProche);
+                this.Sselect = SegmentProche(ptClic);
+                triangle_terrain terrProche = TriangleProche(this.getSselect());
                 
                 this.listBSelect.clear();
                 this.listNSelect.clear();
@@ -318,44 +372,52 @@ public class Controleur
             break;
             
             
-            
+            /**
+             * 20 : Creation d'appui
+             * 
+             * Au clic, on recupère le segment le plus proche puis on projete sur ce segment le point cliqué
+             * 
+             * Lorsque l'appui est positionné, on redessine tout
+             */
             case 20 :
                 this.listBSelect.clear();
                 this.listNSelect.clear();
+                this.listTTSelect.clear();
                 
                 this.main.redrawAll();
                 
                 ptClic = new point(t.getX(), t.getY());
+                
                 
                 this.Sselect = SegmentProche(ptClic);
-                
-                this.main.redrawAll();
-                this.etat = 21;
-            break;
-            
-            case 21 :
-                ptClic = new point(t.getX(), t.getY());
-                triangle_terrain tt = TriangleProche(this.Sselect);
-                
+
+                triangle_terrain tt = TriangleProche(this.getSselect());
+
                 if(!(ptClic.getPx() < this.Sselect.getMinX()) && !(ptClic.getPx() > this.Sselect.getMaxX()))
                 {
                     if(!(ptClic.getPy() < this.Sselect.getMinY()) && !(ptClic.getPy() > this.Sselect.getMaxY()))
                     {
-                        point App = this.Sselect.PointNormal(ptClic);
-                        
-                        appui_simple aS = new appui_simple(this.main.gettrModel().getEns_noeud().size(), tt, this.Sselect, App);
-                        this.main.gettrModel().getEns_noeud().add(aS);
+                        point App = this.getSselect().PointNormal(ptClic);
 
-                        this.etat = 20;
-                        
-                        this.listTTSelect.clear();
+                        appui_simple aS = new appui_simple(this.main.gettrModel().getEns_noeud().size(), tt, this.getSselect(), App);
+                        this.main.gettrModel().getEns_noeud().add(aS);
 
                     }
                 }
+                this.Sselect = null;
+                
+                
                 this.main.redrawAll();
             break;
             
             
+            /**
+             * 30 : création de noeud(s)
+             * 
+             * On crée un nouveau noeud simple où le point cliqué se trouve
+             * 
+             * On redessine tout
+             */
             case 30 :
                 if(this.newCol != null)
                 {
@@ -366,12 +428,36 @@ public class Controleur
                     nvNd = new noeud_simple(ensNd.size(), new point(t.getX(), t.getY()));                
                 }
                 
-                System.out.println(nvNd);
+                //System.out.println(nvNd);
                 ensNd.add(nvNd);
                 this.getMain().redrawAll();
                 
             break;
             
+            
+            /**
+             * 40-41-42 : création de barre(s)
+             * On peut créer une barre : 
+             *   - En créant deux nouveaux noeuds
+             *   - En créant un nouveaux noeud et en en sélectionnant un déjà existant
+             *   - En sélectionnant deux noeuds déjà existants
+             * 
+             * 40 : création/sélection du premier noeud/appui
+             * 
+             * Si la touche SHIFT est préssée, on sélectionne le noeud le plus proche pour servir de premier noeud de la barre
+             *  > On passe à l'état 42
+             * Sinon on crée un nouveau noeud simple où la zone de dessin a été cliquée
+             *  > On passe à l'état 41
+             * On redessine tout
+             * 
+             * 41 : création/sélection du second noeud/appui (le premier point a été créé)
+             * 
+             * Si la touche SHIFT est pressée, on sélectionne le noeud le plus proche pour servir de second point à la barre
+             * Sinon on crée un nouveau noeud simple où la zone de dessin a été cliquée
+             *  
+             * > On repasse à l'état 40 et on redessine tout
+             * 
+             */
             case 40:
                 this.listNSelect.clear();
 
@@ -412,7 +498,7 @@ public class Controleur
                 }
                 
                 this.getMain().redrawAll();
-                this.etat = 40; // enlever cette ligne pour créer un polyligne
+                this.etat = 40; 
             break;
             
             case 42:
@@ -433,11 +519,35 @@ public class Controleur
                 }
                 
                 this.main.redrawAll();
-                this.etat = 40;
-                
+                this.etat = 40; 
             break;
             
             
+            
+            /**
+             * 50-51-52 : Création de triangle de terrain (TDT)
+             * On peut créer un nouveau TDT :
+             *   - En créant trois nouveaux points
+             *   - En créant deux nouveaux points et en sélectionnant un déjà existant
+             *   - En créant un nouveaux point et en sélectionnant deux déjà existants
+             *   - En sélectionnant trois points déjà existants
+             *   
+             * 50 : création/sélection du premier point
+             * Si la touche SHIFT est pressée, on sélectionne le point le plus proche et on en fait le premier point du TDT
+             * Sinon on crée un nouveau point
+             *  > etat 51 et on redessine tout
+             * 
+             * 51 : création/sélection du deuxième point
+             * Si la touche SHIFT est pressée, on sélectionne le point le plus proche et on en fait le second point du TDT
+             * Sinon on crée un nouveau point
+             *  > etat 52 et on redessine tout
+             * 
+             * 52 : création/sélection du troisième point
+             * Si la touche SHIFT est pressée, on sélectionne le point le plus proche et on en fait le troisième point du TDT
+             * Sinon on crée un nouveau point
+             *  > etat 50 et on redessine tout
+             * 
+             */
             case 50:   
                 
                 if(t.isShiftDown())
@@ -449,7 +559,6 @@ public class Controleur
                 {
                      pts[0] = new point(t.getX(), t.getY());
                 }
-                
                 
                 this.getMain().redrawAll();
                 this.etat = 51;
@@ -482,7 +591,6 @@ public class Controleur
                 }
                 
                 ensTrTerr.add(new triangle_terrain(ensTrTerr.size(), getPts()[0], getPts()[1],nvP));
-                //System.out.println(ensTrTerr.get(ensTrTerr.size()-1));
 
                 pts[0] = null;
                 pts[1] = null;
@@ -491,9 +599,20 @@ public class Controleur
                 this.getMain().redrawAll();
             break;
         }
+                
     }
     
     
+    
+    /**
+     * Methode TriangleProche :
+     * Cette méthode permet de retourner le TDT contenant le segment sélectionné
+     * 
+     * Si la liste de TDT du terrain est vide, 
+     *   @return null
+     * Sinon on parcourt tous les triangles de terrain et on regarde si le segment est contenu dans un de ces TDT,
+     *   @return TDT
+     */
     public triangle_terrain TriangleProche(segment seg)
     {
         if(this.main.getTeModel().getEns_triangle_terrain().isEmpty())
@@ -515,6 +634,15 @@ public class Controleur
         }
     }
     
+    /**
+     * Methode SegmentProche :
+     * Cette méthode permet de retourner le segment le plus proche du segment sélectionné
+     * 
+     * Si la liste de TDT du terrain est vide, 
+     *   @return null
+     * Sinon on parcourt tous les srgments des triangles de terrain et on regarde leur distance normale par rapport au clic, et retourne le segment le plus proche
+     *   @return segment
+     */
     public segment SegmentProche(point pt)
     {
         double distS;
@@ -549,6 +677,15 @@ public class Controleur
         return Seg;
     }
     
+    /**
+     * Methode BarreProche :
+     * Cette méthode permet de retourner la barre la plus proche du point_clic
+     * 
+     * Si la liste de barre du treillis est vide, 
+     *   @return null
+     * Sinon on calcul la distance de chaque barre par rapport au point cliqué et on retourne la barre ayant la distance la plus faible
+     *   @return barre
+     */
     public barre BarreProche(point pt)
     {
         double distB;
@@ -582,7 +719,15 @@ public class Controleur
         }
     }
     
-    
+    /**
+     * Methode NoeudProche :
+     * Cette méthode permet de retourner le noeud le plus proche du point cliqué
+     * 
+     * Si la liste de noeuds du treillis est vide, 
+     *   @return null
+     * Sinon on calcul la distance de chaque noeud par rapport au point cliqué, et on retourne le noeud le plus proche
+     *   @return noeud
+     */
     public noeud NoeudProche(point pt)
     {
         double distN;
@@ -610,6 +755,16 @@ public class Controleur
         }
     }
     
+    /**
+     * Methode PointProche :
+     * Cette méthode permet de retourner le point le plus proche du point clic
+     * 
+     * Si la liste de TDT du terrain est vide, 
+     *   @return null
+     * Sinon on parcourt tous les points des triangles de terrain et on calcul leur distance normale par rapport au clic.
+     * On retourne le point le plus proche
+     *   @return point
+     */
     public point PointProche(point pt)
     {
         double distPt;
@@ -698,6 +853,8 @@ public class Controleur
             }
             this.listTTSelect.clear();
         }
+        
+        this.Sselect = null;
 
         this.main.redrawAll();
     }
@@ -759,5 +916,12 @@ public class Controleur
     public ArrayList<triangle_terrain> getListTTSelect() 
     {
         return listTTSelect;
+    }
+
+    /**
+     * @return the Sselect
+     */
+    public segment getSselect() {
+        return Sselect;
     }
 }

@@ -34,8 +34,10 @@ public class MainPane extends BorderPane
     private Button bAppui;
     private Button bSelect;
     private Button bVerrouiller;
+    private Button bSauver;
+    private Button bCalculer;
     
-    private ColorPicker cpCouleur;
+    //private ColorPicker cpCouleur;
     
     private Treillis trModel;
     private terrain teModel;
@@ -60,6 +62,18 @@ public class MainPane extends BorderPane
         this.bPoint.setOnAction((t) -> 
         {
             this.control.changementEtat(30);
+        });
+        
+        this.bSauver = new Button("Sauver");
+        this.bSauver.setOnAction((t) -> 
+        {
+            this.control.changementEtat(70);
+        });
+        
+        this.bCalculer = new Button("Calculer");
+        this.bCalculer.setOnAction((t) -> 
+        {
+            this.control.changementEtat(80);
         });
         
         this.bAppui = new Button("Appui");
@@ -89,11 +103,11 @@ public class MainPane extends BorderPane
         
         
         
-        this.cpCouleur = new ColorPicker();
+        /*this.cpCouleur = new ColorPicker();
         this.cpCouleur.setOnAction((t) -> 
         {
             this.control.changeCouleur(this.getCpCouleur().getValue());
-        });
+        });*/
         
         this.bVerrouiller = new Button("Verrouiller");
         this.bVerrouiller.setOnAction((t) -> 
@@ -101,8 +115,10 @@ public class MainPane extends BorderPane
             this.control.changementEtat(60);
         });
         
-        HBox hbHaut = new HBox(this.getbPoint(), this.getbSegment(), this.getbTrlgTerrain(), this.getbAppui(), this.getbSelect(), this.cpCouleur, this.getbVerrouiller());
-        this.setTop(hbHaut);
+        HBox hbSuperHaut = new HBox(this.bSauver, this.bCalculer, this.bVerrouiller);
+        VBox hbGauche = new VBox(this.getbPoint(), this.getbSegment(), this.getbTrlgTerrain(), this.getbAppui(), this.getbSelect()/*, this.cpCouleur*/);
+        this.setTop(hbSuperHaut);
+        this.setLeft(hbGauche);
         
         this.canvas = new DCanvas(this);
         this.setCenter(canvas);
@@ -175,9 +191,9 @@ public class MainPane extends BorderPane
     /**
      * @return the cpCouleur
      */
-    public ColorPicker getCpCouleur() {
+    /*public ColorPicker getCpCouleur() {
         return cpCouleur;
-    }
+    }*/
 
     /**
      * @return the bVerrouiller

@@ -49,6 +49,13 @@ public class segment {
         context.setLineWidth(2);
     }
     
+    public void dessineSelection(GraphicsContext context, Color clr)
+    {
+        context.setStroke(clr);
+        context.strokeLine(this.P1.getPx(), this.P1.getPy(), this.P2.getPx(), this.P2.getPy());
+        context.setLineWidth(2);
+    }
+    
     public String toString()
     {
         return "[" + this.getP1().toString() + "," + this.getP2().toString() + "]";
