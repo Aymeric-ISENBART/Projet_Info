@@ -42,9 +42,18 @@ public abstract class noeud_appui extends noeud
         return this.getY();
     }
     
-    public void dessine(GraphicsContext context)
+    public abstract void dessine(GraphicsContext context);
+    
+    @Override
+    public segment getSeg()
     {
-        
+        return this.getSeg_trlg_terrain();
+    }
+    
+    @Override
+    public triangle_terrain getTrlg()
+    {
+        return this.getTrgl_terrain();
     }
             
     

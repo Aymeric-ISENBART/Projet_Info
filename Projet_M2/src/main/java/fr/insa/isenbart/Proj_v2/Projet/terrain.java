@@ -1,6 +1,7 @@
 package fr.insa.isenbart.Proj_v2.Projet;
 
 
+import java.io.PrintWriter;
 import java.util.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -49,7 +50,20 @@ public class terrain
     public void setEns_triangle_terrain(ArrayList<triangle_terrain> ens_triangle_terrain) {
         this.ens_triangle_terrain = ens_triangle_terrain;
     }
-
+    public void enregistrerTerrain(PrintWriter fw)
+    {
+        System.out.println("Terrain :");
+        fw.println("Terrain :");
+        if(!this.ens_triangle_terrain.isEmpty())
+        {
+            for(triangle_terrain tt : this.getEns_triangle_terrain())
+            {
+                System.out.println("\t\t" + tt.getIdentificateur() + ";" + tt);
+                fw.println(tt.getIdentificateur() + ";" + tt);
+            }
+        }
+    }
+    
     
             
     

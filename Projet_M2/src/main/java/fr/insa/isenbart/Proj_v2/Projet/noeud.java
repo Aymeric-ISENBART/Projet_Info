@@ -34,7 +34,8 @@ public abstract class noeud
     
     public abstract double getX();
     public abstract double getY();
-
+    public abstract segment getSeg();
+    public abstract triangle_terrain getTrlg();
     
     
     public abstract void dessine(GraphicsContext context);

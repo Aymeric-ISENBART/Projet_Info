@@ -90,6 +90,7 @@ public class Controleur
                 
                 case 70 :
                     System.out.println("Sauvegarder");
+                    enregistrer();
                 break;
                 
                 case 80:
@@ -927,49 +928,41 @@ public class Controleur
         return Sselect;
     }
 
-public void enregistrer()
+    public void enregistrer()
     {
-     try {
-         
-      
-       File file = new File("/Users/huntz/OneDrive/Bureau/PROJE/Treillis.txt");
-      
-       if (file.createNewFile()){
-         System.out.println("Fichier créé!");
-       }else{
-         System.out.println("Fichier existe déjà.");
-       }
-      
-    } catch (IOException e) {
-     throw new Error (e) ;  
- }
-     try {
-         
-         ArrayList<triangle_terrain> ensTer = this.main.getTeModel().getEns_triangle_terrain();
-         ArrayList<barre> ensbarre = this.main.gettrModel().getEns_barre();
-         ArrayList<noeud> ensnoeud = this.main.gettrModel().getEns_noeud();
-         //ArrayList<appui_simple> ensAS = this.main.gettrModel().getEns_noeud().get
-      PrintWriter fw = new   PrintWriter("/Users/huntz/OneDrive/Bureau/PROJE/Treillis.txt");
-      int i=0;
-      //while (ensTer.get(i).getIdentificateur()!=null){
-      //if (ensTer.get(i).getIdentificateur()!=null){
-      //fw.println("Triangle;"+ensTer.get(i).getIdentificateur()+";"+ensTer.get(i).getPts());
-      //i=i+1;
-      //}
-      fw.println("Barre;"+ensbarre.get(0).getIdentitficateur()+";"+ensbarre.get(0).getNd1()+";"+ensbarre.get(0).getNd2());
-      fw.println("NoeudSimple;"+ensnoeud.get(0).getId()+";"+ensnoeud.get(0).getPoint());
-      fw.println("AppuiSimple;");
-      fw.close();
-      System.out.println("Le texte a été écrit avec succès");
-      FileReader file = new FileReader("/Users/huntz/OneDrive/Bureau/PROJE/Treillis.txt");
-      
-     }catch (IOException e) {
-      e.printStackTrace();
-      
+        try
+        {
+            final String adress = "C:/Users/aymer/Desktop/Treillis.txt";
+            File fileW = new File(adress);
+
+
+            if (fileW.createNewFile())
+            {
+                System.out.println("Fichier créé!");
+            }
+            else
+            {
+                System.out.println("Fichier existe déjà.");
+            }
+
+
+            PrintWriter fw = new PrintWriter(adress);
+            this.main.gettrModel().enregistrerTreillis(fw); // Ecrit le treillis : voir dans la classe treillis
+            this.main.getTeModel().enregistrerTerrain(fw);
+            System.out.println("Le texte a été écrit avec succès");
+
+            fw.close();
+
+            FileReader file = new FileReader(adress);
+        }
+        catch(IOException e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        
     }
- 
     
     
-    }
 }
 

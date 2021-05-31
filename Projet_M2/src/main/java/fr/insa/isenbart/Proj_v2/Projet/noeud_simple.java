@@ -71,4 +71,16 @@ public class noeud_simple extends noeud
     {
         this.clr = color;
     }
+
+    @Override
+    public segment getSeg() 
+    {
+        return null;
+    }
+
+    @Override
+    public triangle_terrain getTrlg() 
+    {
+        return null;
+    }
 }

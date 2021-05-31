@@ -71,5 +71,4 @@ public class appui_simple extends noeud_appui
         context.setFill(this.getClr());
         context.fillOval(this.getX()-(this.getRayonDessin()+2), this.getY()-(this.getRayonDessin()+2), 2*(this.getRayonDessin()+2), 2*(this.getRayonDessin()+2));
     }
-
 }
