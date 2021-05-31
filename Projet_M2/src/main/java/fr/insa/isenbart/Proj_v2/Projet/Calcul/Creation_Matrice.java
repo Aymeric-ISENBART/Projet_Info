@@ -30,7 +30,7 @@ public class Creation_Matrice
         this.trModel = treil;
     }
     
-    public Matrice matTreil()
+    /*public Matrice matTreil()
     {
         this.trModel.reIdentification();
         
@@ -82,7 +82,7 @@ public class Creation_Matrice
             }
         }
         
-    }
+    }*/
     
     public static void main(String[] args)
     {
