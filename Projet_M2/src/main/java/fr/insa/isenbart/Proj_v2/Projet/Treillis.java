@@ -157,7 +157,7 @@ public class Treillis
             for(barre b : this.ens_barre)
             {
                 System.out.println("\t" + b.getIdentitficateur() + ";" + b.getNd1() + ";" + b.getNd2() + ";" + b.getType());
-                fw.println("\t" + b.getIdentitficateur() + ";" + b.getNd1() + ";" + b.getNd2() + ";" + b.getType());
+                fw.println("\t" + b.getIdentitficateur() + ";" + b.getNd1() + ";" + b.getNd2() + ";" + b.getType()); 
             }
         }
                 
