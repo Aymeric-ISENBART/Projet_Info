@@ -164,7 +164,7 @@ public class Treillis
         System.out.println("");
         System.out.println("");
         fw.println("");
-        fw.println("");
+        fw.println(""); 
                 
         System.out.println("Noeuds : ");
         fw.println("Noeuds : ");

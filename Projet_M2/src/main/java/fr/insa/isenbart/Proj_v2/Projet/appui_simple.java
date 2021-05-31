@@ -12,7 +12,7 @@ public class appui_simple extends noeud_appui
 {
 
     // Déplacement tngentielle au terrain , pas normal
-   
+    
     private point appui;
     
     public appui_simple(int id, triangle_terrain trlg, segment seg, point pt )

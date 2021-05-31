@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  */
 public abstract class noeud_appui extends noeud 
 {
-
+ 
     private triangle_terrain trgl_terrain;
     private segment seg_trlg_terrain;
     
