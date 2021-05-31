@@ -1,6 +1,7 @@
 package fr.insa.isenbart.Proj_v2.Projet;
 
 
+import java.io.PrintWriter;
 import java.util.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -14,7 +15,6 @@ public class Treillis
     private ArrayList<barre> ens_barre = new ArrayList<barre>();
     private ArrayList<noeud> ens_noeud = new ArrayList<noeud>();
     private catalogue cat;
-    private terrain terr;   
    
     
     public Treillis() 
@@ -145,6 +145,82 @@ public class Treillis
         }
     }
     
+    public void enregistrerTreillis(PrintWriter fw)
+    {
+        this.reIdentification();
+        noeud_simple ns = new noeud_simple(0, new point(0, 0));
+
+        fw.println("Barres : ");
+        System.out.println("Barres : ");
+        if(!this.ens_barre.isEmpty())
+        {
+            for(barre b : this.ens_barre)
+            {
+                System.out.println("\t" + b.getIdentitficateur() + ";" + b.getNd1() + ";" + b.getNd2() + ";" + b.getType());
+                fw.println("\t" + b.getIdentitficateur() + ";" + b.getNd1() + ";" + b.getNd2() + ";" + b.getType()); 
+            }
+        }
+                
+        System.out.println("");
+        System.out.println("");
+        fw.println("");
+        fw.println(""); 
+                
+        System.out.println("Noeuds : ");
+        fw.println("Noeuds : ");
+        System.out.println("\tNoeuds simples :");
+        fw.println("\tNoeuds simples :");
+         
+        ArrayList<noeud> Appui = this.getAppui();
+        
+        if(!this.ens_noeud.isEmpty())
+        {
+            for(noeud n : this.ens_noeud)
+            {
+                if(n.getClass() == ns.getClass())
+                {
+                    System.out.println("\t\t" + n.getId()+ ";" + n);
+                    fw.println("\t\t" + n.getId()+ ";" + n);
+                }            
+            }
+        }
+        
+        System.out.println("");
+        System.out.println("");
+        fw.println("");
+        fw.println("");
+        
+        System.out.println("\tAppuis");
+        fw.println("\tAppuis");
+        
+        if(!Appui.isEmpty())
+        {
+            for(noeud n : Appui)
+            {
+                System.out.println("\t\t" + n.getId()+ ";" + n + "\n\t\tTriangle_de_terrain : " + n.getTrlg() + "\n\t\tSegment : " + n.getSeg());
+                fw.println("\t\t" + n.getId()+ ";" + n + "\n\t\tTriangle_de_terrain : " + n.getTrlg() + "\n\t\tSegment : " + n.getSeg());
+
+            }
+        }
+        
+        
+        System.out.println("Catalogue :");
+        fw.println("Catalogue :");
+        if(!(this.cat == null) && !this.cat.getCatalogue().isEmpty())
+        {
+            for(type_b tB : this.cat.getCatalogue())
+            {
+                System.out.println("\t\t" + tB);
+                fw.println("\t\t" + tB);
+            }
+        }
+        
+        System.out.println("");
+        System.out.println("");
+        fw.println("");
+        fw.println("");
+    }
+    
     
 
     public ArrayList<barre> getEns_barre() {
@@ -164,6 +240,21 @@ public class Treillis
     public void setEns_noeud(ArrayList<noeud> ens_noeud) {
         this.ens_noeud = ens_noeud;
     }
+    
+    public ArrayList<noeud> getAppui()
+    {
+        ArrayList<noeud> res = new ArrayList<noeud>();
+        
+        for(noeud n : this.ens_noeud)
+        {
+            if(n.getSeg() != null)
+            {
+                res.add(n);
+            }
+        }
+        
+        return res;
+    }
 
     /**
      * @return the cat
@@ -178,21 +269,4 @@ public class Treillis
     public void setCat(catalogue cat) {
         this.cat = cat;
     }
-
-    /**
-     * @return the terr
-     */
-    public terrain getTerr() {
-        return terr;
-    }
-
-    /**
-     * @param terr the terr to set
-     */
-    public void setTerr(terrain terr) {
-        this.terr = terr;
-    }
-    
-    
-
 }
