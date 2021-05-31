@@ -14,6 +14,10 @@ import fr.insa.isenbart.Proj_v2.Projet.noeud_simple;
 import fr.insa.isenbart.Proj_v2.Projet.point;
 import fr.insa.isenbart.Proj_v2.Projet.segment;
 import fr.insa.isenbart.Proj_v2.Projet.triangle_terrain;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +27,6 @@ import javafx.scene.paint.Color;
 /**
  *
  * @author aymer
- * kgrgr
  */
 
 public class Controleur 
@@ -923,4 +926,50 @@ public class Controleur
     public segment getSselect() {
         return Sselect;
     }
+
+public void enregistrer()
+    {
+     try {
+         
+      
+       File file = new File("/Users/huntz/OneDrive/Bureau/PROJE/Treillis.txt");
+      
+       if (file.createNewFile()){
+         System.out.println("Fichier créé!");
+       }else{
+         System.out.println("Fichier existe déjà.");
+       }
+      
+    } catch (IOException e) {
+     throw new Error (e) ;  
+ }
+     try {
+         
+         ArrayList<triangle_terrain> ensTer = this.main.getTeModel().getEns_triangle_terrain();
+         ArrayList<barre> ensbarre = this.main.gettrModel().getEns_barre();
+         ArrayList<noeud> ensnoeud = this.main.gettrModel().getEns_noeud();
+         //ArrayList<appui_simple> ensAS = this.main.gettrModel().getEns_noeud().get
+      PrintWriter fw = new   PrintWriter("/Users/huntz/OneDrive/Bureau/PROJE/Treillis.txt");
+      int i=0;
+      //while (ensTer.get(i).getIdentificateur()!=null){
+      //if (ensTer.get(i).getIdentificateur()!=null){
+      //fw.println("Triangle;"+ensTer.get(i).getIdentificateur()+";"+ensTer.get(i).getPts());
+      //i=i+1;
+      //}
+      fw.println("Barre;"+ensbarre.get(0).getIdentitficateur()+";"+ensbarre.get(0).getNd1()+";"+ensbarre.get(0).getNd2());
+      fw.println("NoeudSimple;"+ensnoeud.get(0).getId()+";"+ensnoeud.get(0).getPoint());
+      fw.println("AppuiSimple;");
+      fw.close();
+      System.out.println("Le texte a été écrit avec succès");
+      FileReader file = new FileReader("/Users/huntz/OneDrive/Bureau/PROJE/Treillis.txt");
+      
+     }catch (IOException e) {
+      e.printStackTrace();
+      
+    }
+ 
+    
+    
+    }
 }
+
