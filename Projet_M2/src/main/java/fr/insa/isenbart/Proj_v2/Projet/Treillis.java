@@ -161,7 +161,6 @@ public class Treillis
             }
         }
                 
-        
         System.out.println("");
         System.out.println("");
         fw.println("");
