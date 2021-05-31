@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 /**
  *
  * @author aymer
+ * kgrgr
  */
 
 public class Controleur 
