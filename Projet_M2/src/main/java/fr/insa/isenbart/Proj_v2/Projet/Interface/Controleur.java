@@ -954,7 +954,7 @@ public class Controleur
             fw.close();
 
             FileReader file = new FileReader(adress);
-        }
+        }  
         catch(IOException e)
         {
             System.out.println(e);
