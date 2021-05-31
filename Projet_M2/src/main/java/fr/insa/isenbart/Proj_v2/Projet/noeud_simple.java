@@ -15,7 +15,7 @@ public class noeud_simple extends noeud
     public noeud_simple(int id, point pt)
     {
         super(id);
-        this.Pt = pt;
+        this.Pt = pt; 
         this.clr = Color.PINK;
     }
     
@@ -70,5 +70,17 @@ public class noeud_simple extends noeud
     public void changeCouleur(Color color) 
     {
         this.clr = color;
+    }
+
+    @Override
+    public segment getSeg() 
+    {
+        return null;
+    }
+
+    @Override
+    public triangle_terrain getTrlg() 
+    {
+        return null;
     }
 }
