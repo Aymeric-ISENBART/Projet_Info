@@ -25,9 +25,6 @@ import javafx.scene.paint.Color;
  * @author aymer
  */
 
-/*
-Fuck off   
-*/
 public class Controleur 
 {
     private MainPane main;
