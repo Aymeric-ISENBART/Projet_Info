@@ -133,6 +133,18 @@ public class Treillis
         return res;
     }
     
+    public void reIdentification() // Reindexe tous les éléments des listes
+    {
+        for(barre b: this.getEns_barre())
+        {
+            b.setIdentitficateur(this.getEns_barre().indexOf(b));
+        }
+        for(noeud n : this.getEns_noeud())
+        {
+            n.setIdentificateur(this.getEns_noeud().indexOf(n));
+        }
+    }
+    
     
 
     public ArrayList<barre> getEns_barre() {

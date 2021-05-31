@@ -24,6 +24,8 @@ public abstract class noeud
         return this.identificateur;
     }
     
+    
+    
     @Override
     public String toString()
     {
@@ -64,6 +66,13 @@ public abstract class noeud
      */
     public double getRayonDessin() {
         return rayonDessin;
+    }
+
+    /**
+     * @param identificateur the identificateur to set
+     */
+    public void setIdentificateur(int identificateur) {
+        this.identificateur = identificateur;
     }
     
 

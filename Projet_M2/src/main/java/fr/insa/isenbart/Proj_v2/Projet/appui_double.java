@@ -17,6 +17,11 @@ public class appui_double extends noeud_appui
         this.appui=pt;
     }
     
+    public appui_double(int id)
+    {
+        super(id);
+    }
+    
     
 
     // Bloqué en translation => X,Y fixe

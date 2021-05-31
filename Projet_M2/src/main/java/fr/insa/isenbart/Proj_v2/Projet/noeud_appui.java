@@ -25,6 +25,12 @@ public abstract class noeud_appui extends noeud
         this.trgl_terrain = trlg;
         this.clr = Color.ORANGERED;
     }
+    
+    public noeud_appui(int id) 
+    {
+        super(id);
+        this.clr = Color.ORANGERED;
+    }
 
     public double getX()
     {

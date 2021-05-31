@@ -20,6 +20,11 @@ public class appui_simple extends noeud_appui
         super(id,trlg,seg);
         this.appui=pt;
     }
+    
+    public appui_simple(int id)
+    {
+        super(id);
+    }
 
     
     

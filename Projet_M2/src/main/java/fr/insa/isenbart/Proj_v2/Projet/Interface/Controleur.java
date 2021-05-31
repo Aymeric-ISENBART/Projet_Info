@@ -598,11 +598,8 @@ public class Controleur
                 this.etat = 50;
                 this.getMain().redrawAll();
             break;
-        }
-                
+        }           
     }
-    
-    
     
     /**
      * Methode TriangleProche :
