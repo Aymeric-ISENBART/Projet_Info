@@ -41,6 +41,8 @@ public class Creation_Matrice
         int indexL=0;
         int indexC=0;
         
+        
+        
         for(noeud n : this.trModel.getEns_noeud())
         {
             if((n.getClass()!=AS.getClass()) || (n.getClass()!=AD.getClass()))
@@ -81,7 +83,7 @@ public class Creation_Matrice
                 
             }
         }
-        
+        return mat;
     }*/
     
     public static void main(String[] args)

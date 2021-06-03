@@ -235,11 +235,5 @@ public class MainPane extends BorderPane
      */
     public void setbTrlgTerrain(Button bTrlgTerrain) {
         this.bTrlgTerrain = bTrlgTerrain;
-    }
-
-
-    
-    
-    
-    
+    }    
 }

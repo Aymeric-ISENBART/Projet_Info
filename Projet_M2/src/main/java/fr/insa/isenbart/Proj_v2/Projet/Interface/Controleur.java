@@ -490,10 +490,19 @@ public class Controleur
                 if(t.isShiftDown())
                 {
                     ndProche = NoeudProche(new point(t.getX(), t.getY()));
-                    this.listNSelect.add(ndProche);
+                    if(ndProche == listNSelect.get(listNSelect.size()-1))
+                    {
+                        System.out.println("Exit");
+                        break;
+                    }
+                    else
+                    {
+                        this.listNSelect.add(ndProche);
 
-                    barre Seg = new barre(this.main.gettrModel().getEns_noeud().size(), ensNd.get(ensNd.size()-1), ndProche);
-                    this.main.gettrModel().getEns_barre().add(Seg);
+                        barre Seg = new barre(this.main.gettrModel().getEns_noeud().size(), ensNd.get(ensNd.size()-1), ndProche);
+                        this.main.gettrModel().getEns_barre().add(Seg);
+                        this.etat = 40; 
+                    }
                 }
                 else
                 {
@@ -501,31 +510,37 @@ public class Controleur
                     ensNd.add(nvNd);
 
                     ensBr.add(new barre(ensBr.size(), ensNd.get(ensNd.size()-2), ensNd.get(ensNd.size()-1)));
+                    this.etat = 40; 
                 }
                 
                 this.getMain().redrawAll();
-                this.etat = 40; 
             break;
             
             case 42:
                 if(t.isShiftDown())
                 {
                     ndProche = NoeudProche(new point(t.getX(), t.getY()));
+                    if(ndProche == listNSelect.get(listNSelect.size()-1))
+                    {
+                        System.out.println("Exit");
+                        break;
+                    }
                     this.listNSelect.add(ndProche);
 
                     barre Seg = new barre(this.main.gettrModel().getEns_noeud().size(), this.listNSelect.get(0), ndProche);
                     this.main.gettrModel().getEns_barre().add(Seg);
-}
+                    this.etat = 40; 
+                }
                 else
                 {
                     nvNd = new noeud_simple(ensNd.size(), new point(t.getX(), t.getY()));
                     ensNd.add(nvNd);
 
                     ensBr.add(new barre(ensBr.size(), this.listNSelect.get(0), ensNd.get(ensNd.size()-1)));
+                    this.etat = 40; 
                 }
                 
                 this.main.redrawAll();
-                this.etat = 40; 
             break;
             
             
@@ -555,7 +570,6 @@ public class Controleur
              * 
              */
             case 50:   
-                
                 if(t.isShiftDown())
                 {
                     point ptProche = PointProche(new point(t.getX(), t.getY()));
@@ -574,15 +588,24 @@ public class Controleur
                 if(t.isShiftDown())
                 {
                     point ptProche = PointProche(new point(t.getX(), t.getY()));
-                    pts[1] = ptProche;
+                    if(ptProche == pts[0])
+                    {
+                        System.out.println("ExitTr");
+                        break;
+                    }
+                    else
+                    {
+                        pts[1] = ptProche;
+                        this.etat = 52;
+                    }
                 }
                 else
                 {
                      pts[1] = new point(t.getX(), t.getY());
+                     this.etat = 52;
                 }
                                 
                 this.getMain().redrawAll();
-                this.etat = 52;
             break;
             
             case 52 :
@@ -590,18 +613,32 @@ public class Controleur
                 if(t.isShiftDown())
                 {
                     nvP = PointProche(new point(t.getX(), t.getY()));
+                    if((nvP == pts[0])||(nvP == pts[1]))
+                    {
+                        System.out.println("ExitTr");
+                        break;
+                    }
+                    else
+                    {
+                        ensTrTerr.add(new triangle_terrain(ensTrTerr.size(), getPts()[0], getPts()[1],nvP));
+
+                        pts[0] = null;
+                        pts[1] = null;
+
+                        this.etat = 50;
+                    }
                 }
                 else
                 {
                      nvP = new point(t.getX(), t.getY());
+                     ensTrTerr.add(new triangle_terrain(ensTrTerr.size(), getPts()[0], getPts()[1],nvP));
+
+                    pts[0] = null;
+                    pts[1] = null;
+
+                    this.etat = 50;
                 }
                 
-                ensTrTerr.add(new triangle_terrain(ensTrTerr.size(), getPts()[0], getPts()[1],nvP));
-
-                pts[0] = null;
-                pts[1] = null;
-                
-                this.etat = 50;
                 this.getMain().redrawAll();
             break;
         }           
@@ -960,9 +997,6 @@ public class Controleur
             System.out.println(e);
             e.printStackTrace();
         } 
-        
-    }
-    
-    
+      }
 }
 

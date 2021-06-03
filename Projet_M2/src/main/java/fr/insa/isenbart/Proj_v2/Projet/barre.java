@@ -64,14 +64,13 @@ public class barre
         
         context.setStroke(Color.RED);
         context.strokeLine(this.nd1.getX(), this.nd1.getY(), this.nd2.getX(), this.nd2.getY());
-        context.setLineWidth(2);
     }
     
     public void dessine(GraphicsContext context)
     {
         context.setStroke(this.clr);
+        context.setLineWidth(2);
         context.strokeLine(this.nd1.getX(), this.nd1.getY(), this.nd2.getX(), this.nd2.getY());
-        context.setLineWidth(1);
 
     }
     

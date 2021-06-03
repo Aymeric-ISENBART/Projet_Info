@@ -14,7 +14,7 @@ public abstract class noeud_appui extends noeud
     private triangle_terrain trgl_terrain;
     private segment seg_trlg_terrain;
     
-    private double rayonDessin = 3;
+    private double rayonDessin = 5;
     private Color clr;
     
     

@@ -60,10 +60,8 @@ public class DCanvas extends Pane
         context.setFill(Color.WHITE);
         context.fillRect(0, 0, this.getWidth(), this.getHeight());
         
-        // Dessine le treillis
-        trModel.dessine(context);
-        // Dessine le terrain
         teModel.dessine(context);
+        trModel.dessine(context);
         
 
         // Dessine la sélection de noeud        
@@ -97,7 +95,7 @@ public class DCanvas extends Pane
         }
         
         
-        final double rayonDessin = 3;
+        final double rayonDessin = 5;
         
         // Dessine le premier point pour créer le triangle de terrain
         point p1 = this.main.getControl().getPts()[0];

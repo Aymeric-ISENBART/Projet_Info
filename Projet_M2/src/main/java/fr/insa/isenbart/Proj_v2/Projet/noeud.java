@@ -11,7 +11,7 @@ public abstract class noeud
 {
 
     private int identificateur;
-    private double rayonDessin = 3; 
+    private double rayonDessin = 5; 
     //private point Pt;
     
     public noeud(int id) 

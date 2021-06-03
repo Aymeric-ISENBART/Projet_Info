@@ -16,7 +16,7 @@ public class noeud_simple extends noeud
     {
         super(id);
         this.Pt = pt; 
-        this.clr = Color.PINK;
+        this.clr = Color.BLACK;
     }
     
     public noeud_simple(int id, Color col, point pt)

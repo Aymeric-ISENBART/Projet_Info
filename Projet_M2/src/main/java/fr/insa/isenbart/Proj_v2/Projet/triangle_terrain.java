@@ -15,7 +15,7 @@ public class triangle_terrain
     private ArrayList<segment> segs = new ArrayList<segment>();
     
     private Color clr;
-    private double rayonDessin = 3;
+    private double rayonDessin = 5;
 
 
     public triangle_terrain(int id, point p1, point p2, point p3) 
@@ -75,8 +75,8 @@ public class triangle_terrain
         for(segment s : this.getSegs())
         {
             context.setStroke(this.getClr());
+            context.setLineWidth(2);
             context.strokeLine(s.getP1().getPx(), s.getP1().getPy(), s.getP2().getPx(), s.getP2().getPy());
-            context.setLineWidth(1);
         }
     }
     
@@ -92,7 +92,6 @@ public class triangle_terrain
         {
             context.setStroke(Color.RED);
             context.strokeLine(s.getP1().getPx(), s.getP1().getPy(), s.getP2().getPx(), s.getP2().getPy());
-            context.setLineWidth(2);
         }
     }
 
